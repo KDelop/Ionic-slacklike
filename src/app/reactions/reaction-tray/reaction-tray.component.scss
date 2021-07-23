@@ -1,0 +1,34 @@
+:host {
+  .tray {
+    margin-bottom: 4px;
+    margin-right: 4px;
+  }
+  .emoji {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 14px;
+    padding: 4px 6px;
+    font-size: 16px;
+    line-height: 16px;
+    white-space: nowrap;
+    min-width: 42px;
+    min-height: 26px;
+    // &:hover {
+    //   background: rgba(0, 0, 0, 0.2);
+    //   border: 1px solid rgba(0, 0, 0, 0.2);
+    // }
+    span {
+      font-size: 11px;
+      float: right;
+    }
+    &.no-users{
+      text-align: center;
+      background: transparent;
+      border: none;
+    }
+  }
+  .iReacted {
+    background: #c2dff5 !important;
+  }
+}

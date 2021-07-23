@@ -1,0 +1,151 @@
+<ion-header>
+  <ion-toolbar>
+    <ng-container *ngIf="!showSearchbar">
+      <ion-buttons class="align-self-center" slot="start">
+        <ion-menu-toggle>
+          <div class="org-avatar">
+            {{activeOrgInitials}}
+          </div>
+        </ion-menu-toggle>
+      </ion-buttons>
+      <ion-title>Channels</ion-title>
+      <ion-buttons class="align-self-center" slot="end">
+        <ion-button (click)="toggleSearch()">
+          <ion-icon slot="icon-only" name="search"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ng-container>
+    <ion-searchbar #search mode="ios" *ngIf="showSearchbar" showCancelButton="always" (ionChange)="searchItems($event)" (ionCancel)="toggleSearch()"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content *ngIf="!showSearchbar">
+  <ion-item tappable button class="text-primary" detail="false" lines="full" (click)="openCreateChannel()">
+    Open a new channel
+  </ion-item>
+  <ion-virtual-scroll *ngIf="recentItemsArray?.length" [items]="recentItemsArray"  [trackBy]="trackByFn" [itemHeight]="itemHeightFn">
+    <ion-item-sliding #slidingItem *virtualItem="let item">
+      <ion-item tappable button (click)="navigateToItem(item?.teamId)">
+        <ng-container *ngIf="!teamEntities[item?.teamId]?.receiverId">
+          <ion-avatar slot="start">
+            <img src="assets/img/team.png">
+          </ion-avatar>
+          <ion-label class="message-label">
+            <h2>
+              {{teamEntities[item?.teamId]?.name}}
+            </h2>
+            <div
+              class="text-ellipsis"
+              *ngIf="typeTrackerEntities && !typeTrackerEntities[item?.teamId]?.ids?.length"
+            >
+              <markdown
+                *ngIf="recentChatLastMessage && recentChatLastMessage[item?.teamId]"
+                [data]="recentChatLastMessage[item?.teamId]?.content"
+              ></markdown>
+            </div>
+
+            <span
+              class="green-text text-ellipsis"
+              *ngIf="typeTrackerEntities && typeTrackerEntities[item?.teamId]?.ids?.length"
+            >
+              {{userEntities[typeTrackerEntities[item?.teamId]?.ids[0]]?.firstName}}
+              {{typeTrackerEntities[item?.teamId]?.ids?.length === 1 ? 'is' : 'and few more are'}}
+              typing...
+            </span>
+
+          </ion-label>
+          <div class="unread-count" *ngIf="item.unreadCount">{{item.unreadCount}}</div>
+        </ng-container>
+        <ng-container *ngIf="teamEntities[item?.teamId]?.receiverId">
+          <ion-avatar class="user-avatar" slot="start">
+            <img src="{{userEntities[teamEntities[item?.teamId]?.users[0].userId]?.avatar ? userEntities[teamEntities[item?.teamId]?.users[0].userId]?.avatar : 'assets/fallback-dp/dp1.svg'}}">
+            <ion-icon class="user-status" name="ellipse" [ngClass]="{'active': onlineUsers[teamEntities[item?.teamId]?.users[0].userId]}"></ion-icon>
+          </ion-avatar>
+          <ion-label class="message-label">
+            <h2>
+              {{userEntities[teamEntities[item?.teamId]?.users[0].userId]?.firstName}} {{userEntities[teamEntities[item?.teamId]?.users[0].userId]?.lastName}}
+              <span *ngIf="teamEntities[item?.teamId]?.users[0].userId === currentUserId">(You)</span>
+            </h2>
+            <ng-container *ngIf="typeTrackerEntities && typeTrackerEntities[item?.teamId]?.ids?.length">
+              typing...
+            </ng-container>
+            <ng-container *ngIf="!(typeTrackerEntities && typeTrackerEntities[item?.teamId]?.ids?.length)">
+              <markdown
+                *ngIf="recentChatLastMessage && recentChatLastMessage[item?.teamId]"
+                [data]="recentChatLastMessage[item?.teamId]?.content"
+              ></markdown>
+            </ng-container>
+          </ion-label>
+          <div class="unread-count" *ngIf="item.unreadCount">{{item.unreadCount}}</div>
+        </ng-container>
+        <ion-icon *ngIf="item.isPinned" size="small" color="medium" slot="end" name="star"></ion-icon>
+      </ion-item>
+      <ion-item-options side="end">
+        <ion-item-option (click)="slidingItem.close(); toggleStarItem(item, !item?.isPinned)">
+          <ion-icon slot="top" [name]="item.isPinned ? 'star-outline' : 'star'"></ion-icon>
+          {{ item.isPinned ? 'Unstar' : 'Star'}}
+        </ion-item-option>
+        <ion-item-option *ngIf="teamEntities[item?.teamId]?.receiverId" color="light" (click)="slidingItem.close(); closeItem(item)"><ion-icon slot="top" name="close"></ion-icon> Close</ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-virtual-scroll>
+
+
+
+</ion-content>
+
+<ion-content *ngIf="showSearchbar">
+  <ion-list>
+    <ng-container *ngIf="searchResults?.length">
+      <ng-container *ngFor="let item of searchResults; trackBy: trackByFn">
+        <ion-item *ngIf="!item?.noResults" tappable button (click)="navigateToItem(item?._source?.type === 'T' ? item?._id : DMTeamEntities[item?._source?.userId])">
+          <ng-container *ngIf="item?._source?.type === 'T' && !item.noResults">
+            <ion-avatar slot="start">
+              <img src="assets/img/team.png">
+            </ion-avatar>
+            <ion-label>
+              <h2>
+                {{teamEntities[item?._id]?.name}}
+              </h2>
+            </ion-label>
+            <!-- <div class="unread-count" *ngIf="item.unreadCount">{{item.unreadCount}}</div> -->
+          </ng-container>
+          <ng-container *ngIf="item?._source?.type === 'U' && !item.noResults">
+            <ion-avatar class="user-avatar" slot="start">
+              <img src="{{userEntities[item?._source?.userId]?.avatar ? userEntities[item?._source?.userId]?.avatar : 'assets/fallback-dp/dp1.svg'}}">
+              <ion-icon class="user-status" name="ellipse" [ngClass]="{'active': onlineUsers[item?._source?.userId]}"></ion-icon>
+            </ion-avatar>
+            <ion-label>
+              <h2>
+                {{userEntities[item?._source?.userId]?.firstName}} {{userEntities[item?._source?.userId]?.lastName}}
+                <span *ngIf="item?._source?.userId === currentUser?.id">(You)</span>
+              </h2>
+            </ion-label>
+            <!-- <div class="unread-count" *ngIf="item.unreadCount">{{item.unreadCount}}</div> -->
+          </ng-container>
+        </ion-item>
+        <ion-item detail="false" lines="none" *ngIf="item?.noResults">
+          <div class="search-empty-state">
+            We couldn't find anything by that name.
+            <span class="emoji">😕</span>
+          </div>
+        </ion-item>
+      </ng-container>
+    </ng-container>
+    <ion-item [routerLink]="['/org/channel']" detail="true" button>
+      <ion-avatar slot="start">
+        <img src="assets/img/team.png">
+      </ion-avatar>
+      <ion-label>
+        Explore channels
+      </ion-label>
+    </ion-item>
+    <ion-item  [routerLink]="['/org/people']" detail="true" button>
+      <ion-avatar slot="start">
+        <img src="assets/img/team.png">
+      </ion-avatar>
+      <ion-label>
+        Explore people
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

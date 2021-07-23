@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Switch workspace
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="list-heading">
+    Workspaces
+  </div>
+  <ion-list *ngIf="orgList?.length">
+    <ion-item
+    [ngClass]="{'active': activeOrg.id === org.id}"
+    button
+    *ngFor="let org of orgList; let lastItem = last"
+    detail="true"
+    [detailIcon]="activeOrg.id === org.id ? 'checkmark-circle' :  'chevron-forward'"
+    [lines]="lastItem ? 'none' : 'inset'"
+    (click)="switchOrg(org.id)"
+    >
+      <ion-avatar class="mr-2">
+        <div class="org-avatar mr-2">
+          {{org.name[0]}}
+        </div>
+      </ion-avatar>
+      <ion-label>
+        {{org.name}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-item class="user-info" detail="true" lines="none" button (click)="openEditProfile()">
+    <ion-avatar>
+      <img [src]="currentUser?.avatar" />
+    </ion-avatar>
+    <ion-label>
+      <h2>
+        {{ currentUser?.firstName }} {{ currentUser?.lastName }}
+      </h2>
+      <p>
+        {{ currentUser?.email }}
+      </p>
+    </ion-label>
+  </ion-item>
+
+</ion-content>

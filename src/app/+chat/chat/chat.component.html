@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="org/recent"></ion-back-button>
+      <span *ngIf="totalUnread > 0" class="total-unread-count">{{totalUnread}}</span>
+    </ion-buttons>
+    <ion-buttons slot="start" *ngIf="activeChat && (activeChat.type === 'DIRECT_MESSAGE' || activeChat?.type === 'PERSONAL')">
+      <ion-button (click)="openChatDetails()">
+        <ion-avatar class="user-avatar">
+          <ion-img [src]="receiver?.avatar"></ion-img>
+          <ion-icon class="user-status" name="ellipse" [ngClass]="{'active': onlineUsers[receiver?.id]}"></ion-icon>
+        </ion-avatar>
+      </ion-button>
+    </ion-buttons>
+    <ion-title (click)="openChatDetails()" class="receiver-title" *ngIf="activeChat && (activeChat.type === 'DIRECT_MESSAGE' || activeChat?.type === 'PERSONAL')">
+      {{receiver?.firstName}} {{receiver?.lastName}}
+    </ion-title>
+    <ion-title (click)="openChatDetails()" *ngIf="activeChat && (activeChat.type !== 'DIRECT_MESSAGE' && activeChat?.type !== 'PERSONAL')">
+      {{activeChat?.name}}
+    </ion-title>
+    <ion-buttons slot="end" *ngIf="activeChat && (activeChat.type !== 'DIRECT_MESSAGE' && activeChat?.type !== 'PERSONAL')" >
+      <ion-button class="members-count" (click)="openChatDetails()">
+        <!-- <ion-icon name="alert-circle-outline"></ion-icon> -->
+        {{activeChat?.users?.length}}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-chat-list-new
+    [chatList]="chatList$ | async"
+    [isMessageSent]="isMessageSent$ | async"
+    [isMessageRecieved]="isMessageRecieved$ | async"
+    [userEntities]="userEntities$ | async"
+    [currentUser]="currentUser$ | async"
+    [teamEntities]="teamEntities$ | async"
+    [DMTeamEntities]="DMTeamEntities$ | async"
+    [activeChat]="activeChat$ | async"
+    [onlineUsers]="onlineUsers"
+    [personalTeam]="personalTeam$ | async"
+    (loadMore)="loadMoreMessages($event)">
+  </app-chat-list-new>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-progress-bar *ngIf="showFileUploadLoader" type="indeterminate"></ion-progress-bar>
+  <div class="active-typers" *ngIf="activeTypers?.length">
+    {{activeTypers}}
+  </div>
+  <ion-toolbar>
+    <app-chat-footer
+      #chatFooter
+      [userList]="userList$ | async"
+      [activeChat]="activeChat$ | async"
+      [currentUser]="currentUser$ | async"
+      [receiver]="receiver"
+      (fileUploading)="onFileUploading($event)"
+    >
+    </app-chat-footer>
+  </ion-toolbar>
+</ion-footer>

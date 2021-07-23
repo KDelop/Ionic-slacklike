@@ -1,0 +1,12 @@
+:host {
+  .footer-cta {
+    --ion-grid-column-padding: 0;
+    --ion-grid-padding: 0;
+    height: 0;
+    ion-button {
+      --box-shadow: none;
+      margin: 0;
+      height: 48px;
+    }
+  }
+}

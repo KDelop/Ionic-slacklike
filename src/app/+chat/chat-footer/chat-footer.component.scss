@@ -1,0 +1,66 @@
+:host {
+  .quill-bot {
+    .message-pane {
+      padding: 1.5rem 0;
+      border-top: 1px solid var(--border) !important;
+    }
+  }
+  ngx-avatar {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+    z-index: 9;
+  }
+  .threads-channel-check {
+    padding: 10px;
+    input[type='checkbox'] {
+      margin-right: 10px;
+    }
+  }
+  .file-upload-preview {
+    padding-left: 15px;
+    .item {
+      background: var(--light);
+      padding: 5px 10px;
+      border-radius: var(--border-radius);
+      border: 1px solid var(--border);
+      position: relative;
+      .text {
+        font-size: 13px;
+      }
+      .icon-times_small {
+        display: none;
+        position: absolute;
+        background: var(--theme-primary);
+        color: var(--light);
+        border-radius: 100%;
+        top: -10px;
+        right: -8px;
+        font-weight: bold;
+        padding: 2px;
+      }
+      // &:hover .icon-times_small {
+      //   display: block;
+      // }
+    }
+  }
+
+  .footer-wrap {
+    display: flex;
+    width: 100%;
+    // border-top: 2px solid var(--theme-primary);
+    quill-editor {
+      flex: 1;
+    }
+    .footer-cta {
+      padding-right: 0.1em;
+      display: flex;
+      align-items: center;
+      ion-button {
+        height: 100%;
+        --box-shadow: none;
+        font-size: 12px;
+      }
+    }
+  }
+}

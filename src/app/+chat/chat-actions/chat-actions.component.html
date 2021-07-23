@@ -1,0 +1,61 @@
+<ion-item
+  #messageItem
+  class="message-row"
+  lines="none"
+  >
+  <ion-avatar slot="start">
+    <ion-img class="message-image" [src]="userEntities[message?.senderId]?.avatar" [alt]="userEntities[message?.senderId]?.firstName[0]"></ion-img>
+  </ion-avatar>
+  <div class="message-content-wrap">
+    <h6>{{userEntities[message?.senderId]?.firstName}} {{userEntities[message?.senderId]?.lastName}} <span class="small text-muted">{{message.createdAt | date: 'shortTime'}}</span></h6>
+    <ng-container *ngIf="(!editMode || editMode !== message?._id)">
+      <markdown [data]="message?.isEdited ? message.content + '<span class=message-edited>(edited)</span>' : message.content"></markdown>
+    </ng-container>
+
+    <div class="message-attachments" *ngIf="message?.attachment?.length">
+      <div class="message-attachments-block" *ngFor="let attachment of message.attachment" >
+        <ion-img (click)="showImagePreview(attachment?.resourceUrl)" tappable [src]="attachment?.resourceUrl" alt="{{attachment?.title}}"></ion-img>
+      </div>
+    </div>
+  </div>
+</ion-item>
+
+
+
+
+<app-reaction-tray
+  (click)="openReactionPicker($event)"
+  [reactions]="message?.reactions?.length ? message?.reactions : emojis"
+  [currentUser]="currentUser"
+  (emitSelectedReaction)="selectedReaction($event)"
+></app-reaction-tray>
+<ion-list>
+  <ng-container *ngIf="!message?.isActivity">
+    <ng-container *ngIf="message?.senderId === currentUser?.id">
+      <ion-item button detail="false" (click)="deleteMessage()">
+        <ion-icon color="danger" slot="start" name="trash-outline"></ion-icon>
+        <ion-label color="danger">Delete</ion-label>
+      </ion-item>
+      <ion-item button detail="false" *ngIf="!message?.attachment?.length" (click)="editMessage()">
+        <ion-icon slot="start" name="create-outline"></ion-icon>
+        <ion-label>Edit</ion-label>
+      </ion-item>
+    </ng-container>
+    <ion-item button detail="false" (click)="forwardMessage()">
+      <ion-icon slot="start" name="return-up-forward-outline"></ion-icon>
+      <ion-label>Forward</ion-label>
+    </ion-item>
+    <ion-item *ngIf="!message?.isPinned || (message?.isPinned && message?.pinnedBy === currentUser?.id)" button detail="false" (click)="pinMessage()">
+      <ion-icon slot="start" name="return-up-forward-outline"></ion-icon>
+      <ion-label>{{message?.isPinned ? 'Un-pin from this conversation' : 'Pin to this conversation'}}</ion-label>
+    </ion-item>
+  </ng-container>
+  <!-- <ion-item button detail="false" *ngIf="!message?.threadId" (click)="openThread()">
+    <ion-icon slot="start" name="arrow-undo-outline"></ion-icon>
+    <ion-label>Reply in thread</ion-label>
+  </ion-item> -->
+  <ion-item button detail="false" lines="none" (click)="closePopover('close')">
+    <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+    <ion-label>Cancel</ion-label>
+  </ion-item>
+</ion-list>

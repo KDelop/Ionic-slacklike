@@ -1,0 +1,80 @@
+app-chat-footer,
+.edit-message-quill {
+  .quill-bot {
+    position: relative;
+    .ql-container {
+      .ql-editor {
+        // padding-left: 60px !important;
+        // padding-right: 130px !important;
+        // margin-top: 7px;
+        &.ql-blank:before {
+        //   // left: 58px !important;
+        //   color: var(--text-muted) !important;
+          font-size: 14px;
+        }
+      }
+      // .textarea-emoji-control {
+      //   top: 14px !important;
+      //   padding-right: 50px;
+      //   .send-button {
+      //     position: absolute;
+      //     top: -9px;
+      //     right: -3px;
+      //     height: 41px;
+      //     width: 40px;
+      //     display: flex;
+      //     align-items: center;
+      //     justify-content: center;
+      //     background: var(--primary);
+      //     text-align: center;
+      //     color: #fff;
+      //     font-size: 1.2em;
+      //   }
+      // }
+      &.ql-snow {
+        // border-top: 2px solid var(--theme-primary) !important;
+        // border-bottom: none;
+        // background: var(--body) !important;
+        // color: var(--text-primary);
+      }
+    }
+    .ql-toolbar {
+      display: none;
+      border: none;
+      // padding-left: 50px;
+    }
+    // button {
+    //   outline: none !important;
+    //   box-shadow: none !important;
+    // }
+    .show-formatting-options {
+      .ql-toolbar {
+        display: block;
+      }
+    }
+  }
+}
+
+.edit-message-quill {
+  .quill-bot {
+    .ql-container.ql-snow {
+      border: 1px solid #eee !important;
+      padding-left: 0 !important;
+      .ql-editor {
+        padding-left: 15px !important;
+      }
+      .textarea-emoji-control {
+        button {
+          &.btn {
+            &.btn-md{
+              display: none !important;
+            }
+          }
+        }
+      }
+    }
+    .ql-toolbar {
+      padding-left: 10px !important;
+    }
+  }
+}

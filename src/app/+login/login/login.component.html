@@ -1,0 +1,40 @@
+<ion-progress-bar *ngIf="auth.loading" type="indeterminate"></ion-progress-bar>
+<ion-content padding>
+	<div class="logo">
+			<ion-img [src]="'assets/img/logo.svg'"></ion-img>
+	</div>
+
+	<div class="login-title">
+		Login to SPACE
+	</div>
+
+	<ng-template [ngIf]="!auth.loading">
+    <ion-button
+      button
+      expand="block"
+      color="primary"
+      *ngIf="!auth.loggedIn"
+      [disabled]="auth.loading"
+      (click)="auth.login()">
+      Log In
+      <ion-spinner *ngIf="auth.loading"></ion-spinner>
+    </ion-button>
+  </ng-template>
+
+
+  <ng-container *ngIf="auth.loggedIn">
+    <ion-button
+      button
+      expand="block"
+      color="primary"
+      (click)="reLogin()">
+      Log In
+    </ion-button>
+    <div class="alert alert-warning mx-1">
+      <ion-icon name="warning-outline"></ion-icon>
+      Something went wrong, please try to login again.
+    </div>
+  </ng-container>
+
+
+</ion-content>

@@ -1,0 +1,314 @@
+:host {
+  display: flex;
+  clear: both;
+  .msg-gutter {
+    width: 44px;
+    min-width: 44px;
+    .pic {
+      width: 28px;
+      height: 28px;
+      border-radius: 3px;
+      overflow: hidden;
+      position: relative;
+      img {
+        width: 100%;
+      }
+    }
+    .time {
+      font-size: 0.64em;
+      font-weight: 400;
+      margin-top: 5px;
+    }
+  }
+  .msg-content {
+    margin-left: 6px !important;
+    .name {
+      line-height: 1rem;
+      margin-bottom: 3px;
+      color: var(--text-primary);
+      font-weight: bold;
+    }
+    .message {
+      word-break: break-word;
+      position: relative;
+      margin-right: 10px;
+      border-radius: 0.3rem;
+      border-top-left-radius: 0px;
+      color: var(--text-primary);
+    }
+    .time {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      text-transform: uppercase;
+      margin-left: 5px;
+    }
+    .image {
+      a {
+        display: inline-block;
+        img {
+          padding: 0px;
+          width: auto;
+          max-height: 150px;
+          border-radius: 6px;
+          overflow: hidden;
+          cursor: zoom-in;
+          display: block;
+          // border: 1px solid #ddd;
+        }
+      }
+    }
+    .video {
+      video {
+        width: 432px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        display: block;
+      }
+    }
+    .audio {
+      audio {
+        width: 432px;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+        display: block;
+      }
+    }
+    .sentAttachment {
+      background: #fff;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      max-width: 400px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      .title {
+        font-weight: bold;
+        color: #333;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 260px;
+      }
+      .meta {
+        color: #777;
+        .download-indicator {
+          margin-left: 5px;
+          display: none;
+        }
+      }
+      .hint {
+        display: none;
+      }
+      .icon {
+        font-size: 45px;
+        position: relative;
+        &:after {
+          content: '\e293';
+          display: block;
+          visibility: hidden;
+          width: 16px;
+          height: 16px;
+          background-color: #333;
+          position: absolute;
+          bottom: -2px;
+          right: -12px;
+          border-radius: 50%;
+          font-size: 17px;
+          color: #fff;
+          line-height: 17px;
+          text-align: center;
+          border: 2px solid #fff;
+          box-sizing: content-box;
+        }
+      }
+      .icon-attachment-file {
+        color: #777;
+        &:after {
+          background-color: #777;
+        }
+      }
+      .icon-txt-file {
+        color: #333;
+        &:after {
+          background-color: #333;
+        }
+      }
+      .icon-code-file {
+        color: #fba829;
+        &:after {
+          background-color: #fba829;
+        }
+      }
+      .icon-zip-file {
+        color: #fe7c2e;
+        &:after {
+          background-color: #fe7c2e;
+        }
+      }
+      .icon-pdf-file {
+        color: #b20303;
+        &:after {
+          background-color: #b20303;
+        }
+      }
+      .icon-excel-file {
+        color: #0c981c;
+        &:after {
+          background-color: #0c981c;
+        }
+      }
+      .icon-powerpoint-file {
+        color: #ea674b;
+        &:after {
+          background-color: #ea674b;
+        }
+      }
+      .icon-word-file {
+        color: #2a8ec9;
+        &:after {
+          background-color: #2a8ec9;
+        }
+      }
+      .icon-csv-file {
+        color: #0c981c;
+        &:after {
+          background-color: #0c981c;
+        }
+      }
+      img {
+        margin-right: 7%;
+        max-width: 25%; // max-height: 41.66667%;
+      }
+      // a:hover {
+      //   text-decoration: none;
+      // }
+      .sentAttachment-action {
+        position: absolute;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        visibility: hidden;
+        .btn-group {
+          .btn {
+            background-color: #ffffff;
+            border-color: #e1eaef;
+            outline: none;
+            color: #2d3b4b;
+          }
+        }
+      }
+      // &:hover {
+      //   .icon {
+      //     &:after {
+      //       visibility: visible;
+      //     }
+      //   }
+      //   .meta {
+      //     .download-indicator {
+      //       display: inline-block;
+      //     }
+      //   }
+      //   .sentAttachment-action {
+      //     visibility: visible;
+      //   }
+      // }
+    }
+  }
+  .img-container {
+    position: relative;
+    .img-action {
+      position: absolute;
+      z-index: 3;
+      top: 10px;
+      right: 10px;
+      background-color: white;
+      opacity: 0;
+      visibility: hidden;
+      &.isVisible {
+        opacity: 9;
+        visibility: visible;
+      }
+    }
+  }
+  .image {
+    .img-container {
+      min-width: 100px;
+      min-height: 100px;
+      border-radius: 5px;
+      display: inline-flex !important;
+      align-items: center;
+      justify-content: center;
+      // background: #ffffff;
+      // padding: 5px;
+      cursor: zoom-in;
+      .btn-group {
+        .btn {
+          background-color: #ffffff;
+          border-color: #e1eaef;
+          outline: none;
+          color: #2d3b4b;
+        }
+      }
+    }
+  }
+  .chat-actions {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    z-index: 99;
+    background: var(--body);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    display: none;
+    transform: translate(0, -50%);
+  }
+
+  :host-context(.list-row:hover, .list-row.focused) .chat-actions {
+    display: block;
+  }
+  .retry-send-btn {
+    display: inline-block;
+    font-size: 0.785em;
+    margin: 0.5rem 0;
+    vertical-align: middle;
+    text-decoration: none;
+    cursor: pointer;
+    .retry-send-icon {
+      vertical-align: middle;
+    }
+  }
+  .msg-sending-failed-profile {
+    opacity: 0.5;
+  }
+  .msg-sending-failed-content {
+    .name,
+    .msg-body {
+      opacity: 0.5;
+    }
+  }
+  .thread-count {
+    width: max-content;
+    padding: 0.1em 0.9em;
+    margin: 0.5em 0;
+    color: var(--blue);
+    font-size: 0.875em;
+    font-weight: 600;
+    border-radius: 5px;
+    background: #f4f4f4;
+    cursor: pointer;
+  }
+  .message-editing-mode {
+    width: 100%;
+  }
+}
+.icon-cloud_download {
+  font-size: 18px;
+}

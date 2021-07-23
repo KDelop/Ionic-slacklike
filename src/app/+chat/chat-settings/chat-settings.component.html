@@ -1,0 +1,199 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      <ng-container *ngIf="(activeChat && activeChat?.type === 'DIRECT_MESSAGE') || userInfo">
+        {{ userInfo?.firstName + ' ' + userInfo?.lastName }}
+      </ng-container>
+      <ng-container *ngIf="(activeChat && activeChat?.type !== 'DIRECT_MESSAGE') && !userInfo">
+        {{activeChat.name}}
+      </ng-container>
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ng-container *ngIf="(activeChat && activeChat?.type === 'DIRECT_MESSAGE') || userInfo">
+    <ion-img [src]="imageUrl"></ion-img>
+    <ion-list class="pt-0">
+      <ion-list-header color="light">
+        About
+      </ion-list-header>
+      <ion-item>
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-label>
+          <p>Display Name</p>
+          <h2>{{userInfo?.username}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-label>
+          <p>Email</p>
+          <h2><a href="mailto:{{ userInfo?.email }}">{{userInfo?.email}}</a></h2>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="call-outline" slot="start"></ion-icon>
+        <ion-label>
+          <p>Contact</p>
+          <h2 *ngIf="userInfo?.mobileNumber"><a href="tel:{{ userInfo?.mobileNumber }}">{{userInfo?.mobileNumber}}</a></h2>
+          <h2 *ngIf="!userInfo?.mobileNumber">-</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="userInfo?.quote">
+        <ion-icon name="bulb" slot="start"></ion-icon>
+        <ion-label>
+          <p>Quote</p>
+          <div class="quote" [innerHTML]="userInfo?.quote"></div>
+        </ion-label>
+      </ion-item>
+      <ion-item *ngIf="!isLoadingAttachments && (!noAttachements) && !sharedFiles?.length" button (click)="showAttachements()">
+        <ion-icon name="document-attach-outline" slot="start"></ion-icon>
+        <ion-label>
+          Show attachements
+        </ion-label>
+      </ion-item>
+      <ion-list-header color="light" *ngIf="sharedFiles?.length || noAttachements">
+        <div #attachmentHeader>Attachements</div>
+      </ion-list-header>
+      <ng-container *ngTemplateOutlet="attachements"></ng-container>
+    </ion-list>
+  </ng-container>
+
+
+
+  <ng-container *ngIf="(activeChat && activeChat?.type !== 'DIRECT_MESSAGE') && !userInfo">
+
+
+    <ion-list>
+      <ion-list-header color="light">
+        About
+      </ion-list-header>
+      <ion-item>
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-label>
+          <p>Display Name</p>
+          <h2>{{activeChat.name}}</h2>
+        </ion-label>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-icon name="bulb-outline" slot="start"></ion-icon>
+        <ion-label>
+          <p>Purpose</p>
+          <h2>{{activeChat.purpose ? activeChat.purpose : '-'}}</h2>
+        </ion-label>
+      </ion-item>
+
+      <ion-list-header color="light">
+        Members
+      </ion-list-header>
+
+      <ng-container *ngIf="activeChat?.users?.length">
+        <ion-item *ngFor="let user of activeChat.users">
+          <ion-avatar slot="start">
+            <ion-img [alt]="" [src]="userEntities[user.userId]?.avatar"></ion-img>
+          </ion-avatar>
+          <ion-label>{{userEntities[user.userId]?.firstName + ' ' + userEntities[user.userId]?.lastName}}</ion-label>
+          <ion-button fill="outline" slot="end" color="danger" (click)="removeMember(userEntities[user.userId])">{{ user.userId === currentUser.id ? 'Leave' : 'Remove' }}</ion-button>
+        </ion-item>
+      </ng-container>
+
+      <ng-container *ngIf="!activeChat?.users?.length">
+        <ion-item>
+          <ion-label>
+            <p>No members in this channel</p>
+          </ion-label>
+        </ion-item>
+      </ng-container>
+
+      <ion-item button [disabled]="!activeChat?.isCurrentUserMember" (click)="addMemberModal()">
+        <ion-icon class="add-members-icon" name="add-outline" slot="start"></ion-icon>
+        <ion-label color="primary">
+          Add Members
+        </ion-label>
+      </ion-item>
+
+      <ion-item *ngIf="!isLoadingAttachments && (!noAttachements) && !sharedFiles?.length" button (click)="showAttachements()">
+        <ion-icon name="document-attach-outline" slot="start"></ion-icon>
+        <ion-label>
+          Show attachements
+        </ion-label>
+      </ion-item>
+      <ion-list-header color="light" *ngIf="sharedFiles?.length || noAttachements">
+        <div #attachmentHeader>Attachements</div>
+      </ion-list-header>
+      <ng-container *ngTemplateOutlet="attachements"></ng-container>
+    </ion-list>
+  </ng-container>
+
+
+
+
+  <ng-template #attachements>
+    <ng-container *ngIf="isLoadingAttachments">
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h2><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h2>
+          <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h2><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></h2>
+          <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
+    </ng-container>
+
+    <div *ngIf="noAttachements" class="p-4">
+      No files shared
+    </div>
+
+    <ng-container *ngFor="let message of sharedFiles">
+      <ng-container *ngFor="let file of message.attachment">
+        <ion-item>
+          <ion-thumbnail class="attachment-icon-block" slot="start">
+            <ion-img *ngIf="file.contentType == 'image/png' || file.contentType == 'image/jpeg' || file.contentType == 'image/jpg'; else fallbackImg " [src]="file.resourceUrl"></ion-img>
+          </ion-thumbnail>
+          <ion-label>
+            <h2>{{ file?.title ? file?.title : 'untitled' }}</h2>
+            <h4 *ngIf="userEntities && userEntities[file.senderId]">{{ userEntities[file.senderId].firstName}}</h4>
+            <p>{{file.createdAt}}</p>
+          </ion-label>
+          <ion-button (click)="viewAttachement(file.resourceUrl)" fill="outline" slot="end">View</ion-button>
+        </ion-item>
+      </ng-container>
+    </ng-container>
+
+  </ng-template>
+
+  <ng-template #fallbackImg>
+    <ion-icon name="document-attach-outline"></ion-icon>
+  </ng-template>
+
+
+
+</ion-content>
+
+<!-- <ion-footer class="footer-cta">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="closeModal()" color="light" expand="full">Close</ion-button>
+      </ion-col>
+      <ion-col *ngIf="(activeChat && activeChat?.type === 'DIRECT_MESSAGE') || userInfo">
+        <ion-button (click)="goToDMTeam(userInfo)" expand="full">Message</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer> -->

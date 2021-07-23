@@ -1,0 +1,30 @@
+<ngx-emoj
+  (keydown)="$event?.stopPropagation()"
+  (onemojipick)="addEmoji($event)"
+  [width]="'100%'"
+  [height]="'50vh'"
+  [theme]="{
+    martShowHeader: true,
+    martShowFooter: false,
+    martHeaderPadding: { x: '0', y: '0' },
+    martFooterPadding: { x: '0', y: '0' },
+    martHeaderFontSize: '14px',
+    martHeaderBG: '#e3e7e8',
+    martFooterBG: '#e3e7e8',
+    martBG: '#ebeff2',
+    martCategoryColor: '#94a0a6',
+    martCategoryColorActive: '#455a64',
+    martActiveCategoryIndicatorColor: '#00897b',
+    martEmojiFontSize: '150%',
+    martCategoryFontSize: '20px',
+    martBorderRadius: '0',
+    martActiveCategoryIndicatorHeight: '4px',
+    martEmojiPadding: { x: '40px', y: '40px' },
+    martSearchBoxStyle: {
+      BGcolor: '#ffffff',
+      borderColor: '#cccccc',
+      borderRadius: '80px'
+    }
+  }"
+>
+</ngx-emoj>

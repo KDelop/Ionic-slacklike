@@ -1,0 +1,91 @@
+<div class="quill-bot">
+  <ng-container
+    *ngIf="
+      receiver?.org_user?.isEnabled ||
+      receiver?.id === '0' ||
+      (activeChat?.type !== 'DIRECT_MESSAGE' &&
+      !activeChat?.isArchived &&
+      activeChat?.isCurrentUserMember)
+    "
+  >
+    <input
+      type="file"
+      style="display: none"
+      #fileInput
+      multiple
+      (change)="onfileInputChange($event)"
+    />
+    <div class="footer-wrap">
+      <quill-editor
+        (onEditorCreated)="addBindingCreated($event)"
+        trackChanges="all"
+        (keyup)="onKeyupHandler($event)"
+        [placeholder]="placeholder"
+        theme="snow"
+        format="object"
+        [modules]="editorOptions"
+        [(ngModel)]="message"
+        [ngClass]="{
+          'show-formatting-options': showFormattingOptions,
+          'active-thread': activeThreadId
+        }"
+        class="quill-editor-chat-footer"
+        #quill
+      ></quill-editor>
+      <div class="footer-cta">
+        <!-- <ion-button (click)="toggleFormatting()" fill="clear" size="small" color="dark">
+          <ion-icon slot="icon-only" name="text"></ion-icon>
+        </ion-button> -->
+        <ion-button (click)="initiateFileSelect()" fill="clear" size="small" color="dark">
+          <ion-icon slot="icon-only" name="document-attach-outline"></ion-icon>
+        </ion-button>
+        <ion-button (click)="handleSubmit(quill, true)" size="small">
+          <ion-icon slot="icon-only" name="send"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+    <div
+      style="
+        font-size: 12px;
+        line-height: 1.4;
+        padding-left: 0.97rem;
+        color: #6d767e;
+      "
+    >
+      {{ activeTypers }}
+    </div>
+
+    <div *ngIf="activeThreadId" class="threads-channel-check">
+      <input id="send-to-tracks" [(ngModel)]="sendToTracks" type="checkbox" />
+      <label for="send-to-tracks"> Also send to channel </label>
+    </div>
+
+    <div
+      *ngIf="fileUploadObj?.length"
+      class="d-flex flex-wrap file-upload-preview"
+    >
+      <ng-container *ngFor="let file of fileUploadObj">
+        <ion-chip>
+          <ion-icon name="document-outline" color="primary"></ion-icon>
+          <ion-label class="text-ellipsis">{{ file?.name }}</ion-label>
+          <ion-icon (click)="removeFile(file)" name="close"></ion-icon>
+        </ion-chip>
+      </ng-container>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="activeChat && !activeChat?.receiverId && !activeChat?.isCurrentUserMember && !activeChat?.isArchived">
+    <ion-button (click)="joinChannel()" expand="full">Join Channel</ion-button>
+  </ng-container>
+  <ng-container
+    *ngIf="
+      (receiver && !(receiver?.org_user?.isEnabled || receiver?.id === '0')) ||
+      (activeChat && activeChat?.isArchived)
+    "
+  >
+    <div class="message-pane">
+      <div class="text-center text-muted" style="position: relative">
+        This Team has been deactivated/archived
+      </div>
+    </div>
+  </ng-container>
+</div>

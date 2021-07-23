@@ -1,0 +1,135 @@
+  <div class="chat-main" #chatMain>
+    <div
+      #chatWrapper
+      scrollAssist
+      [scrollElement]="chatMain"
+      [showNewMessage]="showNewMessage"
+      [isMessageRecieved]="isMessageRecieved"
+      [elementWrap]="elementRef"
+      (unsetNewMessage)="unsetNewMessage()"
+      (hideNewMessage)="hideNewMessage()"
+      class="chat-scrollable"
+    >
+      <ion-item
+        #messageItem
+        class="message-row"
+        [ngClass]="{
+          'date-row' : message?.type === 'date',
+          'pinned-msg': message?.isPinned
+        }"
+        [ngStyle]="{'z-index': message?.type === 'date' ? total - idx : ''}"
+        tappable
+        *ngFor="let message of chatList; let idx = index; let total = count; trackBy: trackByFn"
+        lines="none"
+        (click)="message?.type !== 'date' ? presentActionSheet(message, idx, messageItem) : return"
+      >
+        <ng-container *ngIf="message?.type === 'date'">
+          <div class="date-divider">
+            <div class="date-text">
+              {{message.date | date: 'dd MMM y'}}
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="!message?.type || message?.type !== 'date'">
+          <ion-avatar slot="start" (click)="$event.stopPropagation(); navigateToItem(message.senderId)">
+            <ion-img class="message-image" *ngIf="
+              !chatList[idx + 1] ||
+              (chatList[idx + 1] && message &&
+              (chatList[idx + 1].senderId !== message.senderId) ||
+              (chatList[idx + 1].createdAt?.split('T')[1].split(':')[1] !== message.createdAt?.split('T')[1].split(':')[1]))
+            " [src]="userEntities[message?.senderId]?.avatar" [alt]="userEntities[message?.senderId]?.firstName[0]"></ion-img>
+          </ion-avatar>
+          <div class="message-content-wrap">
+            <h6 (click)="$event.stopPropagation(); navigateToItem(message.senderId)" *ngIf="
+            !chatList[idx + 1] ||
+            (chatList[idx + 1] && message &&
+            (chatList[idx + 1].senderId !== message.senderId) ||
+            (chatList[idx + 1].createdAt?.split('T')[1].split(':')[1] !== message.createdAt?.split('T')[1].split(':')[1]))
+          ">{{userEntities[message?.senderId]?.firstName}} {{userEntities[message?.senderId]?.lastName}} <span class="small text-muted">{{message.createdAt | date: 'shortTime'}}</span></h6>
+            <div class="pinned-indicator" *ngIf="message?.pinnedBy">
+              <span class="icon-pin_filled pinned-icon"></span>
+              <span class="pinned-text">
+                Pinned by
+                {{
+                  message?.pinnedBy === currentUser?.id
+                    ? 'You'
+                    : userEntities[message?.pinnedBy]?.firstName +
+                      ' ' +
+                      userEntities[message?.pinnedBy]?.lastName
+                }}</span
+              >
+            </div>
+            <ng-container *ngIf="(!editMode || editMode !== message?._id)">
+              <markdown [data]="message?.isEdited ? message.content + '<span class=message-edited>(edited)</span>' : message.content"></markdown>
+              <app-reaction-tray
+                *ngIf="message && message?.reactions && message?.reactions?.length"
+                [reactions]="message?.reactions"
+                [currentUser]="currentUser"
+                (click)="$event.stopPropagation()"
+                (emitSelectedReaction)="selectedReaction($event, message, idx)"
+              ></app-reaction-tray>
+            </ng-container>
+            <ng-container *ngIf="editMode === message?._id">
+              <div class="edit-message-quill">
+                <div class="quill-bot">
+                  <quill-editor
+                    #quill
+                    (onEditorCreated)="addBindingCreated($event)"
+                    trackChanges="all"
+                    (keyup)="onKeyupHandler($event)"
+                    (keydown)="$event.stopPropagation()"
+                    (click)="$event.stopPropagation()"
+                    [placeholder]="placeholder"
+                    theme="snow"
+                    format="object"
+                    [modules]="editorOptions"
+                    [(ngModel)]="cloneMessage.content"
+                    class="show-formatting-options quill-editor-chat-footer"
+                  ></quill-editor>
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn btn-success"
+                (click)="$event.stopPropagation(); saveUpdatedMessage(quill)"
+                [disabled]="!cloneMessage.content"
+              >
+                Update Message</button
+              ><button
+                type="button"
+                class="btn btn-secondary ml-2"
+                (click)="$event.stopPropagation(); resetEditMode()"
+              >
+                Cancel
+              </button>
+            </ng-container>
+
+            <div class="message-attachments" *ngIf="message?.attachment?.length">
+              <ng-container *ngFor="let attachment of message.attachment">
+                <ng-container *ngIf="attachment?.contentType?.startsWith('image')">
+                  <div class="message-attachment-image">
+                    <ion-img (click)="$event.stopPropagation(); goForAttachment(attachment)" tappable [src]="attachment?.resourceUrl" alt="{{attachment?.title}}"></ion-img>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="!attachment?.contentType?.startsWith('image')">
+                  <div (click)="$event.stopPropagation(); goForAttachment(attachment)" class="message-attachments-block" [mediaClass] [mediaType]="attachment?.contentType">
+                    <div class="left-icon"></div>
+                    <div class="right-info">
+                      <div class="attachment-title">
+                        {{attachment?.title}}
+                      </div>
+                      <div class="attachment-size">
+                        {{attachment?.size}}
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+      </ion-item>
+      <div *ngIf="chatList?.length > 29" #observeEle [element]="observeEle" (reached)="loadMoreMessages()" observeVisibility>observe this</div>
+    </div>
+  </div>
+  <div class="new-message" *ngIf="showNewMessage" (click)="scrollToBottom()">New message <ion-icon name="arrow-down"></ion-icon></div>

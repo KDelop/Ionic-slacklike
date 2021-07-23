@@ -1,0 +1,45 @@
+<div *ngIf="!isLoaded">
+  <ion-list>
+    <ion-item *ngFor="let item of skeletonItem">
+      <ion-avatar slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <p>
+          <ion-skeleton-text animated [ngStyle]="{'width': item.width+'%'}"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</div>
+<ion-virtual-scroll *ngIf="isLoaded && items?.length" [items]="items" [trackBy]="trackByFn" [itemHeight]="itemHeightFn">
+  <ion-item tappable button *virtualItem="let item" (click)="itemSelect(item)">
+    <ng-container *ngIf="item.type">
+      <ion-avatar slot="start">
+        <img src="assets/img/team.png">
+      </ion-avatar>
+      <ion-label class="render-list-item-label">
+        <h2>
+          {{item.name}}
+        </h2>
+        <p *ngIf="item.lastMessage">{{item.lastMessage}}</p>
+      </ion-label>
+      <div class="unread-count" *ngIf="item.unreadCount">{{item.unreadCount}}</div>
+    </ng-container>
+    <ng-container *ngIf="!item.type && item.username">
+      <ion-avatar class="user-avatar" slot="start">
+        <img src="{{item.avatar ? item.avatar : 'assets/fallback-dp/dp1.svg'}}">
+        <ion-icon class="user-status" name="ellipse" [ngClass]="{'active': onlineUsers && onlineUsers[item.id]}"></ion-icon>
+      </ion-avatar>
+      <ion-label class="render-list-item-label">
+        <h2>
+          {{item.firstName}} {{item.lastName}}
+          <span *ngIf="currentUser && item?.id === currentUser?.id">(You)</span>
+        </h2>
+        <p *ngIf="item.lastMessage">{{item.lastMessage}}</p>
+      </ion-label>
+      <div class="unread-count" *ngIf="item.unreadCount">{{item.unreadCount}}</div>
+    </ng-container>
+    <ion-icon *ngIf="selectedItemsEntities && (selectedItemsEntities[item?.id] || selectedItemsEntities[item?._id])" color="success" name="checkmark-circle"></ion-icon>
+  </ion-item>
+</ion-virtual-scroll>

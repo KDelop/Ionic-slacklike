@@ -1,0 +1,30 @@
+<ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+<ion-content padding>
+
+	<div class="logo">
+		<ion-img [src]="'assets/img/logo.svg'"></ion-img>
+	</div>
+
+	<div class="login-title">
+			Please select a workspace to continue
+	</div>
+
+	<ion-list>
+		<ng-container *ngIf="followedOrgs && followedOrgs.length">
+			<ion-list-header>
+				Followed workspaces
+			</ion-list-header>
+			<ion-item *ngFor="let org of followedOrgs" (click)="loginToOrg(org)">
+				<ion-label>{{org.name}}</ion-label>
+			</ion-item>
+		</ng-container>
+		<ng-container *ngIf="otherOrgs && otherOrgs.length">
+			<ion-list-header>
+				Other workspaces
+			</ion-list-header>
+			<ion-item *ngFor="let org of otherOrgs" (click)="loginToOrg(org)">
+				<ion-label>{{org.name}}</ion-label>
+			</ion-item>
+		</ng-container>
+	</ion-list>
+</ion-content>

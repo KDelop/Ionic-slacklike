@@ -1,0 +1,296 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding-bottom: 0.785em;
+  .message-row {
+    padding: 5px 0;
+    // min-height: 58px;
+    align-items: flex-start;
+    --min-height: 0;
+    flex: 0 0 auto;
+    &.date-row {
+      padding: 0;
+      min-height: 28px;
+      position: sticky;
+      top: 0;
+      &::part(native) {
+        min-height: 28px;
+      }
+    }
+    ion-avatar {
+      margin-top: 3px;
+    }
+    h6 {
+      margin: 0 0 3px 0;
+    }
+    &.highlight {
+      background: #edece7;
+      &::part(native) {
+        background-color: #edece7;
+      }
+    }
+    &.pinned-msg {
+      background: #fbeec8;
+      &::part(native) {
+        background-color: #fbeec8;
+      }
+      .pinned-indicator {
+        display: flex;
+        align-items: center;
+        font-size: 0.785em;
+        padding: 0.3em 0;
+        .pinned-text {
+          padding-left: 0.5em;
+          color: var(--text-muted);
+        }
+        .pinned-icon {
+          color: #e8912d;
+        }
+      }
+    }
+  }
+  .infinite-scroll {
+    // order: 1;
+    // position: absolute;
+    // z-index: 9;
+    // top: 0;
+    ion-infinite-scroll-content {
+      // min-height: 1px !important;
+      align-items: center;
+      background-color: #ffffff;
+    }
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.chat-scrollable {
+  /* flex: 0 0 auto; */
+  display: flex;
+  flex-direction: column-reverse;
+  // max-height: 100%;
+  justify-content: flex-start;
+}
+
+.chat-scrollable-wrap {
+  height: 100%;
+}
+
+.chat-main {
+  display: flex;
+  flex-direction: column-reverse;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.date-text {
+  background: #fff;
+  display: inline-block;
+  position: relative;
+  z-index: 9;
+  padding: 5px 12px;
+  border-radius: 5px;
+  font-size: .75rem;
+  font-weight: 600;
+}
+
+.date-divider {
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: center;
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 1px;
+      width: 100%;
+      background: #ddd;
+    }
+}
+
+
+
+
+
+
+
+.message-attachments {
+  display: flex;
+  // flex-direction: column;
+  // align-items: flex-start;
+  // justify-content: space-between;
+  flex-wrap: wrap;
+  column-gap: 7px;
+  row-gap: 7px;
+
+  .message-attachments-block {
+    overflow: hidden;
+    min-width: 200px;
+    width: 100%;
+    border: 1px solid rgba(51, 51, 51, 0.1);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 0.5em;
+    .left-icon {
+      min-width: 34px;
+      font-size: 2.2em;
+      line-height: 1;
+      &:before {
+        font-family: 'icomoon' !important;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        /* Better Font Rendering =========== */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\e91e"
+      }
+    }
+    .right-info {
+      padding-left: 0.5em;
+      .attachment-title {
+        font-weight: 600;
+        font-size: 0.85em;
+      }
+
+      .attachment-size {
+        font-size: 0.785em;
+        color: var(--text-muted);
+      }
+    }
+    &.image-vnd-adobe-photoshop {
+      .left-icon {
+        &:before {
+          content: "\e92c";
+        }
+      }
+    }
+    &.text-plain {
+      .left-icon {
+        &:before {
+          content: "\e930";
+        }
+      }
+    }
+    &.text-html {
+      .left-icon {
+        &:before {
+          content: "\e91f";
+        }
+      }
+    }
+    &.application-zip {
+      .left-icon {
+        &:before {
+          content: "\e91b";
+        }
+      }
+    }
+    &.application-pdf {
+      .left-icon {
+        &:before {
+          content: "\e92a";
+        }
+      }
+    }
+    &.application-vnd-ms-excel {
+      .left-icon {
+        &:before {
+          content: "\e922";
+        }
+      }
+    }
+    &.application-vnd-ms-powerpoint {
+      .left-icon {
+        &:before {
+          content: "\e92b";
+        }
+      }
+    }
+    &.application-msword {
+      .left-icon {
+        &:before {
+          content: "\e931";
+        }
+      }
+    }
+    &.text-csv {
+      .left-icon {
+        &:before {
+          content: "\e920";
+        }
+      }
+    }
+  }
+  .message-attachment-image {
+    height: 200px;
+    overflow: hidden;
+    min-width: 200px;
+    width: 75%;
+    border: 1px solid rgba(51, 51, 51, 0.1);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  ion-img {
+    &::part(image) {
+      width: auto;
+      height: auto;
+      max-width: 100%;
+    }
+  }
+
+}
+
+.message-content-wrap {
+  width: 100%;
+}
+
+
+.new-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 80px;
+  z-index: 999;
+  background: black;
+  border-radius: 40px;
+  padding: 5px 15px;
+  color: #fff;
+  left: 0;
+  right: 0;
+  width: 170px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+
+
+
+
+}

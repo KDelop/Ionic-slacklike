@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{title ? title : 'Forward To'}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelSelection()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar (keydown)="$event.stopPropagation()" (ionChange)="searchItems()" [(ngModel)]="searchText"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div *ngIf="!itemsAll || !itemsAll.length " class="empty-state">
+    <img class="image" src="./assets/img/empty-state.png" alt="">
+    <h3>No users found</h3>
+    <p>There is no one here to forward this message</p>
+  </div>
+  <div *ngIf="searchText?.length && (!items || !items.length) " class="empty-state">
+    <img class="image" src="./assets/img/empty-state.png" alt="">
+    <h3>No users found</h3>
+    <p>No user found for "{{searchText}}"</p>
+  </div>
+  <app-render-list [items]="items" [isLoaded]="true" [selectedItemsEntities]="selectedItemsEntities" (itemSelected)="itemSelect($event)"></app-render-list>
+</ion-content>
+<ion-footer class="footer-cta">
+  <ion-grid>
+    <ion-row>
+      <!-- <ion-col>
+        <ion-button (click)="cancelSelection()" color="light" expand="full">Cancel</ion-button>
+      </ion-col> -->
+      <ion-col>
+        <ion-button (click)="doneSelection()" [disabled]="!selectedItems?.length" expand="full">Done</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

@@ -1,0 +1,52 @@
+:host {
+  height: 100%;
+  .list-heading {
+    margin-top: 8px;
+    padding: 8px 16px;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.785em;
+  }
+
+  ion-list {
+    ion-item {
+      --padding-start: 16px;
+      &::part(native) {
+        --min-height: 58px;
+      }
+      &.active {
+        font-weight: 600;
+        --detail-icon-opacity: 1;
+        --detail-icon-font-size: 1.5em;
+      }
+      ion-avatar {
+        margin-right: 12px;
+      }
+    }
+  }
+
+  .user-info {
+    margin-top: 16px;
+    --background: #f5f5f5;
+    &::part(native) {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+    ion-avatar {
+      height: 40px;
+      width: 40px;
+      /* margin-right: 10px; */
+    }
+    ion-label {
+      padding-left: 12px;
+      flex: 1;
+      h2 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-weight: 500;
+      }
+    }
+  }
+}

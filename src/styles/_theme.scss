@@ -1,0 +1,52 @@
+@media (prefers-color-scheme: dark) {
+  :root {
+    --body: #1a1a1a;
+    --light: #262626;
+    --border: #3f3f3f;
+    --border-radius: 4px;
+    --body-color: #212529;
+    --text-muted: #6c757d;
+    --hover: #252525;
+    --online: #007a5a;
+    --red: #d32f2f;
+    --theme-primary: #a9a9a9;
+    --invert: invert(0.9);
+    --link: #1d9bd1;
+
+    --ion-color-primary: #000000;
+    --ion-color-primary-rgb: 0,0,0;
+    --ion-color-primary-contrast: #ffffff;
+    --ion-color-primary-contrast-rgb: 255,255,255;
+    --ion-color-primary-shade: #1f1f1f;
+    --ion-color-primary-tint: #4e4e4e;
+
+    --ion-toolbar-background: #f8f7f4;
+    --ion-font-family: 'Inter', serif;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --body: #fff;
+    --light: #f5f5f5;
+    --border: #ddd;
+    --border-radius: 4px;
+    --body-color: #212529;
+    --text-muted: #6c757d;
+    --hover: #eee;
+    --online: #007a5a;
+    --red: #d32f2f;
+    --theme-primary: #000;
+    --link: #007bff;
+
+    --ion-color-primary: #000000;
+    --ion-color-primary-rgb: 0,0,0;
+    --ion-color-primary-contrast: #ffffff;
+    --ion-color-primary-contrast-rgb: 255,255,255;
+    --ion-color-primary-shade: #1f1f1f;
+    --ion-color-primary-tint: #4e4e4e;
+
+    --ion-toolbar-background: #f8f7f4;
+    --ion-font-family: 'Inter', serif;
+  }
+}

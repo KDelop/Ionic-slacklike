@@ -1,0 +1,27 @@
+<div
+  class="d-flex align-items-center flex-wrap"
+  style="margin-top: 7px;"
+>
+  <div class="tray" *ngFor="let item of reactions">
+    <div
+    class="emoji {{!item?.users?.length ? 'no-users' : ''}}"
+    [ngClass]="item.users | myReactions: currentUser:currentUser"
+    appLongPress
+    [delay]="400"
+    (longPressed)="longPressed($event)"
+    (click)="selectedReaction(item)"
+    >
+      {{ item.reaction_icon }}<span *ngIf="item?.users?.length">{{ item?.users?.length }}</span>
+    </div>
+  </div>
+  <div *ngIf="showAddReaction">
+    <!-- <app-reaction-picker
+      [buttonReactionTray]="true"
+      (selectedReaction)="selectedReaction($event)"
+    ></app-reaction-picker> -->
+
+    <button class="btn" (click)="openReactionPicker()">
+    <span class="icon-add_reaction"></span>
+  </button>
+  </div>
+</div>

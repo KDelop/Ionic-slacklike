@@ -1,0 +1,7 @@
+{
+  "name": "SPACE Chat",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

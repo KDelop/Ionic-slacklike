@@ -1,0 +1,12 @@
+:host {
+  .unread-count {
+    background: var(--ion-color-danger);
+    border-radius: 100px;
+    font-size: 0.785em;
+    padding: 0.2em 0.7em;
+    color: #fff;
+  }
+  .render-list-item-label {
+    min-height: 27px;
+  }
+}

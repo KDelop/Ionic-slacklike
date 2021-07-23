@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="org/recent"></ion-back-button>
+    </ion-buttons>
+    <ion-title>People</ion-title>
+  </ion-toolbar>
+  <!-- <ion-toolbar color="primary">
+    <ion-searchbar (ionChange)="searchChannels()" [(ngModel)]="searchText"></ion-searchbar>
+  </ion-toolbar> -->
+</ion-header>
+<ion-content>
+  <div *ngIf="isLoaded && (!peoplesAll || !peoplesAll.length) " class="empty-state">
+    <img class="image" src="./assets/img/empty-state.png" alt="">
+    <h3>No users found</h3>
+    <p>there are 0 members in your organization, users will appear here once they join</p>
+  </div>
+  <div *ngIf="searchText?.length && isLoaded && (!peoples || !peoples.length) " class="empty-state">
+    <img class="image" src="./assets/img/empty-state.png" alt="">
+    <h3>No users found</h3>
+    <p>No user found for "{{searchText}}"</p>
+  </div>
+  <app-render-list [onlineUsers]="onlineUsers" [items]="peoples" [currentUser]="currentUser" [isLoaded]="isLoaded" [DMTeamEntities]="DMTeamEntities" (itemSelected)="navigateToItem($event)"></app-render-list>
+</ion-content>

@@ -1,0 +1,21 @@
+:host {
+  ion-toolbar {
+    --border-width: 0;
+  }
+  .unread-count {
+    background: var(--ion-color-danger);
+    border-radius: 100px;
+    font-size: 0.785em;
+    padding: 0.2em 0.7em;
+    color: #fff;
+  }
+  .footer-cta {
+    --ion-grid-column-padding: 0;
+    --ion-grid-padding: 0;
+    ion-button {
+      --box-shadow: none;
+      margin: 0;
+      height: 48px;
+    }
+  }
+}

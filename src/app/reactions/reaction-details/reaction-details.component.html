@@ -1,0 +1,22 @@
+<ion-segment mode="md" *ngIf="reactions?.length" scrollable [value]="reactions[0]" swipe-gesture="true" (ionChange)="segmentChanged($event)">
+  <ion-segment-button *ngFor="let reaction of reactions" layout="icon-start" [value]="reaction">
+      {{reaction.reaction_icon}}
+      <span class="ml-2">{{reaction?.users?.length}}</span>
+  </ion-segment-button>
+</ion-segment>
+<ion-content>
+  <ion-list class="pt-0">
+    <ion-list-header color="light" mode="md">
+      :{{activeReaction?.reaction_name}}
+    </ion-list-header>
+    <ion-item *ngFor="let item of activeReactionUsers; let lastItem = last" lines="{{lastItem ? 'none' : 'full'}}">
+      <ion-avatar class="user-avatar" slot="start">
+        <img src="{{item.avatar ? item.avatar : 'assets/fallback-dp/dp1.svg'}}">
+      </ion-avatar>
+      <ion-label>
+        {{item.firstName}} {{item.lastName}}
+        <span *ngIf="currentUser && item?.id === currentUser?.id">(You)</span>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

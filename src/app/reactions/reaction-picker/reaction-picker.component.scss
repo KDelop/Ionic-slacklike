@@ -1,0 +1,28 @@
+:host {
+  .btnreactiontray {
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 2px 6px;
+    display: block;
+    min-width: 40px;
+    height: 26px;
+    font-size: 16px;
+    margin-bottom: 4px;
+    // &:hover {
+    //   background: rgba(0, 0, 0, 0.2);
+    //   border: 1px solid rgba(0, 0, 0, 0.2);
+    // }
+    span {
+      display: block;
+      margin-top: 1px;
+    }
+  }
+  .reaction-btn-wrap {
+    height: 100%;
+    .btn {
+      height: 100%;
+      color: var(--text-primary);
+    }
+  }
+}

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button text="" defaultHref="org/recent"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Channel</ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button [routerLink]="['/org/create-channel']">
+        <ion-icon name="add-sharp"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+  <!-- <ion-toolbar color="primary">
+    <ion-searchbar (ionChange)="searchChannels()" [(ngModel)]="searchText"></ion-searchbar>
+  </ion-toolbar> -->
+</ion-header>
+<ion-content>
+  <div *ngIf="isLoaded && (!channelsAll || !channelsAll.length) " class="empty-state">
+    <img class="image" src="./assets/img/empty-state.png" alt="">
+    <h3>No channels found</h3>
+    <p>Currently you are not a member of any channel</p>
+  </div>
+  <div *ngIf="searchText?.length && isLoaded && (!channels || !channels.length) " class="empty-state">
+    <img class="image" src="./assets/img/empty-state.png" alt="">
+    <h3>No channels found</h3>
+    <p>No channels found for "{{searchText}}"</p>
+  </div>
+  <app-render-list [items]="channels" [isLoaded]="isLoaded" (itemSelected)="navigateToItem($event)"></app-render-list>
+</ion-content>

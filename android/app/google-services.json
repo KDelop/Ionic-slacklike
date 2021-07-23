@@ -1,0 +1,367 @@
+{
+  "project_info": {
+    "project_number": "118321990441",
+    "firebase_url": "https://kiss-16325.firebaseio.com",
+    "project_id": "kiss-16325",
+    "storage_bucket": "kiss-16325.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118321990441:android:58269b9f7e46a51b",
+        "android_client_info": {
+          "package_name": "com.kiss.io"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118321990441-g38hso1fbbrub3l56fnm6tlvo2bknasg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxt2E5oq2Rc1d4PcwDGj5wUlRAH_-uLaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118321990441-5869r9updb1nri8t2rb3lu1jcioi9cid.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "118321990441-v7j36ja3gg582dl6afmhj8v1987osnar.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "walkover.space.chat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118321990441:android:062f01a391fdd69e7d0538",
+        "android_client_info": {
+          "package_name": "com.kisstoday"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118321990441-0dnoml7iv42lviebo7pdvqmh7irhb2q8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kisstoday",
+            "certificate_hash": "a765731e1e431eb264006568eb46087120297593"
+          }
+        },
+        {
+          "client_id": "118321990441-0jcapd74m0bfro8klhvkniocld300kpj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kisstoday",
+            "certificate_hash": "7aab2588e0ba1347d68074a1a7512df2c05eab77"
+          }
+        },
+        {
+          "client_id": "118321990441-1c0as41kfcpn6nmibdkghn25gpu16hpa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kisstoday",
+            "certificate_hash": "87404648686a2a1e4291910e9c9335cd3ca37ab4"
+          }
+        },
+        {
+          "client_id": "118321990441-7u77o59kcn67rgssuiijtg8e94i78j0a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kisstoday",
+            "certificate_hash": "f4ab2e7b309f793bb0d4156974971f8734b9e1c8"
+          }
+        },
+        {
+          "client_id": "118321990441-hi5fhhtbr1dgg0g74n1952pa3f28pakg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kisstoday",
+            "certificate_hash": "51adecb063bc1a51960e422fe35afaa897fabd33"
+          }
+        },
+        {
+          "client_id": "118321990441-nulnojr2advbh0vqa9knseuvp3kld2jj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kisstoday",
+            "certificate_hash": "abf72f6f148f38de2e8104c7b20c5b1c36e30d7b"
+          }
+        },
+        {
+          "client_id": "118321990441-o9sb0el0gi5dkdq7jaftbs173c5gsqt9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kisstoday",
+            "certificate_hash": "908dc0d6c7a53a02c0db7536de9f16afde30be38"
+          }
+        },
+        {
+          "client_id": "118321990441-rmnhu3a4kct4ulbr1qlqlnk737o39gm0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kisstoday",
+            "certificate_hash": "9a2a7732544b792cd1c61b0413f53246192c5211"
+          }
+        },
+        {
+          "client_id": "118321990441-sqb22n9e0i8iea4l2462a1klfrpcvbsc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kisstoday",
+            "certificate_hash": "00dc6e22a5aef7ea6ca330b096628cd7fbdc68a1"
+          }
+        },
+        {
+          "client_id": "118321990441-g38hso1fbbrub3l56fnm6tlvo2bknasg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxt2E5oq2Rc1d4PcwDGj5wUlRAH_-uLaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118321990441-5869r9updb1nri8t2rb3lu1jcioi9cid.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "118321990441-v7j36ja3gg582dl6afmhj8v1987osnar.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "walkover.space.chat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118321990441:android:218c4589d298a80f7d0538",
+        "android_client_info": {
+          "package_name": "com.walkover.orbit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118321990441-3jklgogr4oksrhd8dsuffbir8ih1e4mu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkover.orbit",
+            "certificate_hash": "26852a18f7365743806c110d398dd209150711cd"
+          }
+        },
+        {
+          "client_id": "118321990441-7i6t1epf3t6akns3uo1dchl7m3lstvfb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkover.orbit",
+            "certificate_hash": "51adecb063bc1a51960e422fe35afaa897fabd33"
+          }
+        },
+        {
+          "client_id": "118321990441-fe8o92ufmqhtprg21ciou8trl8bqc2s1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkover.orbit",
+            "certificate_hash": "9a2a7732544b792cd1c61b0413f53246192c5211"
+          }
+        },
+        {
+          "client_id": "118321990441-hbo8rerdte3lofteahm6tdtjoh4588u0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkover.orbit",
+            "certificate_hash": "147ca229fa18c4411dd3f450a1c83c99fc9c02c7"
+          }
+        },
+        {
+          "client_id": "118321990441-phgcrd6op21qfucv0q3avi4n53k6ed5q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkover.orbit",
+            "certificate_hash": "a765731e1e431eb264006568eb46087120297593"
+          }
+        },
+        {
+          "client_id": "118321990441-rqro0ueaq1j4ppe0ajc4a3l810g5nc36.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkover.orbit",
+            "certificate_hash": "87404648686a2a1e4291910e9c9335cd3ca37ab4"
+          }
+        },
+        {
+          "client_id": "118321990441-g38hso1fbbrub3l56fnm6tlvo2bknasg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxt2E5oq2Rc1d4PcwDGj5wUlRAH_-uLaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118321990441-5869r9updb1nri8t2rb3lu1jcioi9cid.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "118321990441-v7j36ja3gg582dl6afmhj8v1987osnar.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "walkover.space.chat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118321990441:android:728ee8ea51f941207d0538",
+        "android_client_info": {
+          "package_name": "com.walkover.spacedoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118321990441-2dmgt2vv8c1fknncpmo9jgdeavbevgv4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkover.spacedoc",
+            "certificate_hash": "9a2a7732544b792cd1c61b0413f53246192c5211"
+          }
+        },
+        {
+          "client_id": "118321990441-4kqsbml8chqrr3192ss83q6g751umva5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkover.spacedoc",
+            "certificate_hash": "51adecb063bc1a51960e422fe35afaa897fabd33"
+          }
+        },
+        {
+          "client_id": "118321990441-c7avgmnju1c6hcqhgr295nogiun6bk35.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkover.spacedoc",
+            "certificate_hash": "51694fc08eda43467b67b96d1036f1d46338eb82"
+          }
+        },
+        {
+          "client_id": "118321990441-h1q2lubkf6g5pr7ce3j9lc8i5k3a8hnp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkover.spacedoc",
+            "certificate_hash": "a765731e1e431eb264006568eb46087120297593"
+          }
+        },
+        {
+          "client_id": "118321990441-mgi230bcph7djtq5mjhk963g8bmo1aj6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkover.spacedoc",
+            "certificate_hash": "a73db9ed7543689c12545175e42c5db41c342843"
+          }
+        },
+        {
+          "client_id": "118321990441-nc63gqfvmu1pslvuni867mjl8fda2dqm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.walkover.spacedoc",
+            "certificate_hash": "87404648686a2a1e4291910e9c9335cd3ca37ab4"
+          }
+        },
+        {
+          "client_id": "118321990441-g38hso1fbbrub3l56fnm6tlvo2bknasg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxt2E5oq2Rc1d4PcwDGj5wUlRAH_-uLaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118321990441-5869r9updb1nri8t2rb3lu1jcioi9cid.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "118321990441-v7j36ja3gg582dl6afmhj8v1987osnar.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "walkover.space.chat"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118321990441:android:91e4461631c4319f7d0538",
+        "android_client_info": {
+          "package_name": "walkover.space.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118321990441-3kc7eobh3ffsmb2jjv4og753plgmuvi7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "walkover.space.chat",
+            "certificate_hash": "23217eddf0cfeacd36a5a4e64d6c1777ae7620a8"
+          }
+        },
+        {
+          "client_id": "118321990441-g38hso1fbbrub3l56fnm6tlvo2bknasg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxt2E5oq2Rc1d4PcwDGj5wUlRAH_-uLaI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118321990441-5869r9updb1nri8t2rb3lu1jcioi9cid.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "118321990441-v7j36ja3gg582dl6afmhj8v1987osnar.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "walkover.space.chat"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

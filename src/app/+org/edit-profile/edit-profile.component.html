@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit Profile</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-list lines="full" class="ion-no-margin">
+    <ion-item>
+      <ion-label position="floating">First Name*</ion-label>
+      <ion-input (keyup)="checkChanges()" [(ngModel)]="userUpdate.firstName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Last Name*</ion-label>
+      <ion-input (keyup)="checkChanges()" [(ngModel)]="userUpdate.lastName"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Display Name*</ion-label>
+      <ion-input (keyup)="checkChanges()" [(ngModel)]="userUpdate.username"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Phone Number</ion-label>
+      <ion-input type="tel" inputmode="tel" (keyup)="checkChanges()" [(ngModel)]="userUpdate.mobileNumber"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Job Title</ion-label>
+      <ion-input (keyup)="checkChanges()" [(ngModel)]="userUpdate.jobRole"></ion-input>
+    </ion-item>
+    <!-- <ion-item>
+      <ion-label position="floating">Description</ion-label>
+      <ion-textarea [(ngModel)]="userUpdate.quote"></ion-textarea>
+    </ion-item> -->
+  </ion-list>
+  <ion-list lines="full">
+    <ion-item button (click)="signout()">
+      <ion-label color="danger">Sign out</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+
+<ion-footer #footer *ngIf="profileInfoChanged" class="footer-cta">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button (click)="updateProfile()" color="primary" expand="full">Update</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

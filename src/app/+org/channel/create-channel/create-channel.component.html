@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="org/recent"></ion-back-button>
+      </ion-buttons>
+    </ion-buttons> -->
+    <ion-title>Create channel</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form novalidate name="createTeam" #channelForm="ngForm">
+    <ion-list class="pt-0">
+      <ion-list-header color="light">
+        Display name
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <ion-icon *ngIf="teamData.type === 'PUBLIC'" name="folder-outline"></ion-icon>
+          <ion-icon *ngIf="teamData.type !== 'PUBLIC'" name="lock-closed-outline"></ion-icon>
+        </ion-label>
+        <ion-input
+          (keyup)="channelAlreadyExists = false"
+          #displayNameInput
+          placeholder="Display Name for your channel"
+          name="displayName"
+          [(ngModel)]="teamData.name"
+        ></ion-input>
+      </ion-item>
+      <ion-item *ngIf="channelAlreadyExists" class="rounded-lg m-1" lines="none" color="danger">
+        <ion-label>
+          Channel name already exists
+        </ion-label>
+      </ion-item>
+      <!-- <ion-list-header color="light">
+        Purpose
+      </ion-list-header>
+      <ion-item>
+        <ion-label>
+          <ion-icon name="document-text-outline"></ion-icon>
+        </ion-label>
+        <ion-input placeholder="Purpose for your channel" name="purpose" [(ngModel)]="teamData.purpose"></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>
+          <p>Purpose is not mandatory (Optional)</p>
+        </ion-label>
+      </ion-item> -->
+      <ion-list-header color="light">
+        Visibility
+      </ion-list-header>
+      <ion-item>
+        <ion-label *ngIf="teamData.type === 'PUBLIC'">
+          <ion-icon class="pr-2" name="folder-outline"></ion-icon>
+          Public
+        </ion-label>
+        <ion-label *ngIf="teamData.type !== 'PUBLIC'">
+          <ion-icon class="pr-2" name="lock-closed-outline"></ion-icon>
+          Private
+        </ion-label>
+        <ion-toggle (click)="changeChannelType()"></ion-toggle>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>
+          <p>{{ teamData.type === 'PUBLIC' ? 'Anyone in your workspace can view and join this' : 'Only invited members can view this' }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
+
+<ion-footer class="footer-cta">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button
+          [disabled]="
+            !teamData.name ||
+            teamData.name.length < 3 ||
+            channelForm?.form?.controls?.displayName?.invalid ||
+            isCreating ||
+            !teamData.name.trim()"
+          (click)="createChannel()" color="primary" expand="full">
+          <ng-container *ngIf="!isCreating">
+            Create
+          </ng-container>
+          <ion-spinner *ngIf="isCreating" name="lines"></ion-spinner>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

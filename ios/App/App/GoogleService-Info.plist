@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>118321990441-v7j36ja3gg582dl6afmhj8v1987osnar.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.118321990441-v7j36ja3gg582dl6afmhj8v1987osnar</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>118321990441-0dnoml7iv42lviebo7pdvqmh7irhb2q8.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBxsFfP2RYZS2rYgwE7gqJdXxLqKPpsClQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>118321990441</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>walkover.space.chat</string>
+	<key>PROJECT_ID</key>
+	<string>kiss-16325</string>
+	<key>STORAGE_BUCKET</key>
+	<string>kiss-16325.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:118321990441:ios:2b03c5a113ec05a87d0538</string>
+	<key>DATABASE_URL</key>
+	<string>https://kiss-16325.firebaseio.com</string>
+</dict>
+</plist>

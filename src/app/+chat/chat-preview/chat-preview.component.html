@@ -1,0 +1,270 @@
+<div class="d-flex w-100" (click)="presentActionSheet($event)">
+  <div
+    *ngIf="message?.senderId"
+    class="msg-gutter"
+    [ngClass]="{ 'msg-sending-failed-profile': message?.isError }"
+  >
+    <a class="pic">
+      <ngx-avatar
+        name="{{ userEntities &&userEntities[message?.senderId]?.firstName }} {{
+          userEntities && userEntities[message?.senderId]?.lastName
+        }}"
+        size="38"
+        [src]="userEntities && userEntities[message?.senderId]?.avatar"
+      >
+      </ngx-avatar>
+    </a>
+    <span class="time">{{ message.formatedTime }}</span>
+  </div>
+
+  <div *ngIf="!message?.senderId && message?.bot?.username" class="msg-gutter">
+    <a class="pic">
+      <ngx-avatar
+        name="message?.bot?.username"
+        size="38"
+        src="../../../assets/img/logo.svg"
+      >
+      </ngx-avatar>
+    </a>
+    <span class="time">{{ message.formatedTime }}</span>
+  </div>
+
+  <div
+    class="msg-content w-100"
+    [ngClass]="{ 'msg-sending-failed-content': message?.isError }"
+  >
+    <div class="name bolder">
+      <span
+        *ngIf="message?.senderId"
+      >
+        {{
+          userEntities && userEntities[message?.senderId]?.firstName +
+            ' ' +
+            userEntities && userEntities[message?.senderId]?.lastName
+        }}
+      </span>
+      <span *ngIf="!message?.senderId && message?.bot?.username">
+        {{ message?.bot?.username }}
+      </span>
+      <span class="time">{{ message?.formatedTime }}</span>
+    </div>
+    <div
+      *ngIf="!inThread && message.showInMainConversation && parentMessage"
+      class="text-muted small"
+    >
+      Replied to thread
+      <a
+        [routerLink]=""
+        [queryParams]="{ thread: parentMessage._id }"
+        href="javascript:void(0)"
+      >
+        <markdown [data]="parentMessage.content"></markdown>
+      </a>
+    </div>
+    <div class="d-flex justify-content-between align-items-center msg-body">
+      <div [ngClass]="{ 'message-editing-mode': editMode }">
+        <span class="d-flex message" *ngIf="message?.content && !editMode">
+          <markdown [data]="message.content"></markdown>
+        </span>
+        <app-reaction-tray
+          *ngIf="message && message?.reactions && message?.reactions?.length"
+          (click)="$event.stopPropagation()"
+          [reactions]="message?.reactions"
+          [currentUser]="currentUser"
+          (emitSelectedReaction)="selectedReaction($event)"
+        ></app-reaction-tray>
+        <ng-container *ngIf="editMode && message.content">
+          <div class="form-group mt-2 edit-message-quill">
+            <div class="quill-bot">
+              <quill-editor
+                #quill
+                (onEditorCreated)="addBindingCreated($event)"
+                trackChanges="all"
+                (keyup)="onKeyupHandler($event)"
+                (keydown)="$event.stopPropagation()"
+                [placeholder]="placeholder"
+                theme="snow"
+                format="object"
+                [modules]="editorOptions"
+                [(ngModel)]="cloneMessage.content"
+                class="show-formatting-options quill-editor-chat-footer"
+              ></quill-editor>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn btn-success"
+            (click)="$event.stopPropagation(); saveUpdatedMessage(quill)"
+            [disabled]="!cloneMessage.content"
+          >
+            Update Message</button
+          ><button
+            type="button"
+            class="btn btn-secondary ml-2"
+            (click)="$event.stopPropagation(); resetEditMode()"
+          >
+            Cancel
+          </button>
+        </ng-container>
+      </div>
+      <div class="chat-actions">
+        <!-- <app-chat-actions
+          [message]="message"
+          [currentUser]="currentUser"
+          [userEntities]="userEntities"
+          [teamEntities]="teamEntities"
+          [DMTeamEntities]="DMTeamEntities"
+          (editMessageClick)="onEditMessageClick($event)"
+          (emitSelectedReaction)="selectedReaction($event)"
+        >
+        </app-chat-actions> -->
+      </div>
+    </div>
+    <ng-container
+      *ngIf="
+        message?.attachment && message?.attachment?.length && !message?.deleted
+      "
+    >
+      <div class="d-flex flex-wrap">
+        <ng-container *ngFor="let attachment of message.attachment; trackBy: trackByFn">
+          <div [class]="attachment.mediaType + ' mr-2'">
+            <ng-container *ngIf="attachment.mediaType === 'image'">
+              <a
+                class="img-container"
+                (mouseenter)="handleMouseEvent($event)"
+                (mouseleave)="handleMouseEvent($event)"
+                href="javascript:void(0)"
+                (click)="$event.stopPropagation(); showImagePreview(attachment)"
+              >
+                <div class="img-action" [class.isVisible]="imgUtilityBox">
+                  <div
+                    class="btn-group"
+                    role="group"
+                    aria-label="Image actions"
+                  >
+                    <button
+                      type="button"
+                      class="btn btn-sm"
+                      (click)="downloadFile(attachment, $event)"
+                    >
+                      <span class="icon-cloud_download"></span>
+                    </button>
+                  </div>
+                </div>
+
+                <ng-container [ngSwitch]="attachment.contentType">
+                  <ng-container *ngSwitchDefault>
+                    <img
+                      [height]="attachment?.metaData?.height"
+                      [width]="attachment?.metaData?.width"
+                      [src]="attachment.resourceUrl"
+                    />
+                  </ng-container>
+                </ng-container>
+              </a>
+            </ng-container>
+
+            <ng-container *ngIf="attachment.mediaType === 'audio'">
+              <audio controls>
+                <source
+                  [src]="attachment.resourceUrl"
+                  type="{{ attachment.contentType }}"
+                />
+                Browser not supported
+              </audio>
+            </ng-container>
+
+            <ng-container *ngIf="attachment.mediaType === 'video'">
+              <video controls>
+                <source
+                  [src]="attachment.resourceUrl"
+                  type="{{ attachment.contentType }}"
+                />
+                Browser not supported
+              </video>
+            </ng-container>
+
+            <div
+              *ngIf="
+                attachment.mediaType !== 'image' &&
+                attachment.mediaType !== 'audio' &&
+                attachment.mediaType !== 'video'
+              "
+              class="sentAttachment"
+              [ngClass]="{ 'image-type': attachment.mediaType === 'image' }"
+            >
+              <div class="sentAttachment-action">
+                <div class="btn-group">
+                  <button
+                    class="btn btn-outline-dark btn-sm"
+                    (click)="downloadFile(attachment, $event)"
+                  >
+                    <span class="icon-cloud_download"></span>
+                  </button>
+                </div>
+              </div>
+              <ng-container [ngSwitch]="attachment.contentType">
+                <ng-container *ngSwitchCase="'image/vnd.adobe.photoshop'">
+                  <span class="icon icon-ps-file"></span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'text/plain'">
+                  <span class="icon icon-txt-file"></span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'text/html'">
+                  <span class="icon icon-code-file"></span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'application/zip'">
+                  <span class="icon icon-zip-file"></span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'application/pdf'">
+                  <span class="icon icon-pdf-file"></span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'application/vnd.ms-excel'">
+                  <span class="icon icon-excel-file"></span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'application/vnd.ms-powerpoint'">
+                  <span class="icon icon-powerpoint-file"></span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'application/msword'">
+                  <span class="icon icon-word-file"></span>
+                </ng-container>
+                <ng-container *ngSwitchCase="'text/csv'">
+                  <span class="icon icon-csv-file"></span>
+                </ng-container>
+
+                <ng-container *ngSwitchDefault>
+                  <span class="icon icon-attachment-file"></span>
+                </ng-container>
+              </ng-container>
+              <div
+                class="d-flex flex-column ml-3"
+                (click)="downloadFile(attachment, $event)"
+              >
+                <div class="title">{{ attachment.title }}</div>
+                <div class="meta">
+                  <span class="file-size">{{ attachment.size }}</span>
+                  <span class="download-indicator">- Click to download</span>
+                </div>
+                <div class="hint">Click to open attachment</div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <div
+      (click)="$event.stopPropagation(); openThread()"
+      class="thread-count"
+      *ngIf="message?.threadReplyCount > 0 && !inThread"
+    >
+      {{ message.threadReplyCount }} reply
+    </div>
+
+    <ng-container *ngIf="message?.isError">
+      <a class="retry-send-btn" (click)="resendMessage(message)"
+        ><i class="retry-send-icon icon-sync"></i> Retry</a
+      >
+    </ng-container>
+  </div>
+</div>

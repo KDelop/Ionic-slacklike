@@ -1,0 +1,6 @@
+<ion-menu class="accounts-sidebar" content-id="org-content" type="push" [swipeGesture]="canSwipeSidebar">
+	<app-sidebar></app-sidebar>
+	<ion-button (click)="clearLocalDB()">clearLocalDB</ion-button>
+	<ion-button (click)="reload()">refresh</ion-button>
+</ion-menu>
+<ion-router-outlet  id="org-content"></ion-router-outlet>
