@@ -63,7 +63,7 @@
     "cordova-plugin-file-opener2": "^3.0.5",
     "cordova-plugin-googleplus": "^8.5.2",
     "cordova-plugin-safariviewcontroller": "^2.0.0",
-    "dexie": "^3.0.3",
+    "dexie": "^3.2.2",
     "fuse.js": "^6.4.6",
     "jetifier": "^2.0.0",
     "lodash": "^4.17.21",
